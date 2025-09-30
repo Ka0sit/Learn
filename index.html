@@ -353,33 +353,37 @@
   }
   load();
 
-  function exportJSON(){
-    const data = getAnswers();
-    const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href=url; a.download = `CLS8_SetA_${data.name||'student'}.json`; a.click(); URL.revokeObjectURL(url);
-  }
-
   async function submitOnline(){
     const data = getAnswers();
     if(!ENDPOINT){ exportJSON(); return; }
-    try{
-      // text/plain để tránh preflight CORS
-      const res = await fetch(ENDPOINT,{
-        method:'POST',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body: JSON.stringify(data)
-      });
-      if(res.ok){
-        const r = await res.json().catch(()=>({}));
-        alert('Submitted successfully! ' + (r.marks!=null ? ('Marks: ' + r.marks) : ''));
-      }else{
-        alert('Submit failed: '+res.status);
-      }
-    }catch(e){
-      alert('Network error. Exporting JSON instead.');
-      exportJSON();
+
+    // Tạo iframe ẩn (nếu chưa có)
+    let frame = document.getElementById('hidden_iframe');
+    if(!frame){
+      frame = document.createElement('iframe');
+      frame.name = 'hidden_iframe';
+      frame.id   = 'hidden_iframe';
+      frame.style.display = 'none';
+      document.body.appendChild(frame);
     }
+
+    // Tạo form và submit theo x-www-form-urlencoded: payload=<json>
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = ENDPOINT;
+    form.target = 'hidden_iframe';
+
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'payload';
+    input.value = JSON.stringify(data);
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+    form.remove();
+
+    alert('Submitted successfully! Your answers have been sent.');
   }
 </script>
 </body>
