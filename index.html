@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CLS8 – Properties of Materials: Practice Set A (Interactive)</title>
+<style>
+  :root{
+    --bg:#f1f5f9; --card:#fff; --text:#0f172a; --muted:#475569; --border:#cbd5e1; --accent:#0ea5e9; --shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif;color:var(--text)}
+  .wrap{max-width:980px;margin:24px auto;padding:0 16px}
+  .row{display:flex;gap:12px;align-items:center}
+  h1{font-size:24px;margin:0 0 4px}
+  .muted{color:var(--muted);font-size:14px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:#eef2f7;color:#0f172a;cursor:pointer}
+  .btn.primary{background:#e2e8f0}
+  .btn.accent{background:#0ea5e9;color:white;border-color:#0284c7}
+  .grid{display:grid;gap:12px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);margin:18px 0}
+  .card h2{font-size:18px;margin:0;padding:14px 18px;border-bottom:1px solid var(--border)}
+  .card .content{padding:16px 18px}
+  label{font-size:14px;color:var(--muted)}
+  input[type=text],input[type=email],input[type=number],textarea,select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fff;font:inherit}
+  textarea{min-height:88px}
+  ul,ol{margin:8px 0 0 18px}
+  table{border-collapse:collapse;width:100%}
+  th,td{border:1px solid var(--border);padding:8px}
+  th{background:#f1f5f9;text-align:left}
+  .svgbox{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden}
+  .footerbtns{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 24px}
+  .sm{font-size:12px;color:var(--muted)}
+  @media print{
+    body{background:white}
+    .btn,.footerbtns{display:none !important}
+    .card{box-shadow:none}
+    .wrap{max-width:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="row" style="justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+    <div>
+      <h1>CLS8 – Properties of Materials: Practice Set A (Interactive)</h1>
+      <div class="muted">Time: 45–60 min • Total marks: 40</div>
+    </div>
+    <div class="footerbtns">
+      <button class="btn" onclick="window.print()">Print</button>
+      <button class="btn" onclick="exportJSON()">Export answers</button>
+      <button class="btn accent" onclick="submitOnline()">Submit</button>
+    </div>
+  </div>
+
+  <!-- Student info -->
+  <div class="card"><h2>Candidate information</h2>
+    <div class="content grid g3">
+      <div><label>Name</label><input id="name" type="text" placeholder="Student name"></div>
+      <div><label>Class</label><input id="class" type="text" placeholder="Class/Group"></div>
+      <div><label>Email</label><input id="email" type="email" placeholder="email@example.com"></div>
+    </div>
+  </div>
+
+  <!-- Part A -->
+  <div class="card"><h2>Part A – Multiple Choice (4 marks)</h2>
+    <div class="content grid">
+      <div>
+        <p><b>1. Most concentrated solution (1 mark)</b></p>
+        <p>Beaker A: 4 g salt in 40 cm³ water • Beaker B: 6 g salt in 20 cm³ water • Beaker C: 9 g salt in 60 cm³ water • Beaker D: 3 g salt in 10 cm³ water</p>
+        <div id="q1" class="row" style="gap:16px;flex-wrap:wrap"></div>
+      </div>
+      <div>
+        <p><b>2. Solubility and temperature (1 mark)</b></p>
+        <div id="q2" class="grid" style="gap:6px"></div>
+      </div>
+      <div>
+        <p><b>3. Chromatography good practice (1 mark)</b></p>
+        <input id="q3" type="text" placeholder="Answer"/>
+      </div>
+      <div>
+        <p><b>4. Pure substance (1 mark)</b></p>
+        <input id="q4" type="text" placeholder="Answer"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part B -->
+  <div class="card"><h2>Part B – Short Answers & Calculations (16 marks)</h2>
+    <div class="content grid">
+      <div>
+        <p><b>5. Defining terms (3 marks)</b></p>
+        <div class="grid g3">
+          <input id="q5a" type="text" placeholder="(a) solute"/>
+          <input id="q5b" type="text" placeholder="(b) solvent"/>
+          <input id="q5c" type="text" placeholder="(c) solution"/>
+        </div>
+      </div>
+      <div>
+        <p><b>6. Concentration in two units (3 marks)</b></p>
+        <div class="grid g2">
+          <input id="q6a" type="text" placeholder="(a) g/cm³"/>
+          <input id="q6b" type="text" placeholder="(b) g/dm³"/>
+        </div>
+      </div>
+      <div>
+        <p><b>7. Comparing & mixing solutions (4 marks)</b></p>
+        <div class="grid g2">
+          <input id="q7a" type="text" placeholder="(a) more concentrated: X or Y"/>
+          <input id="q7b" type="text" placeholder="(b) mixture concentration (g/cm³)"/>
+        </div>
+      </div>
+      <div>
+        <p><b>8. Percentage purity (3 marks)</b></p>
+        <input id="q8" type="text" placeholder="%"/>
+      </div>
+      <div>
+        <p><b>9. Impurities from given purity (2 marks)</b></p>
+        <input id="q9" type="text" placeholder="mass of impurities (g)"/>
+      </div>
+      <div>
+        <p><b>10. Rf value (1 mark)</b></p>
+        <input id="q10" type="text" placeholder="Rf ="/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part C -->
+  <div class="card"><h2>Part C – Chromatography Interpretation (7 marks)</h2>
+    <div class="content grid">
+      <div>
+        <p><b>11. Identify dyes from chromatogram (3 marks)</b> – Use the chromatogram. The four right-hand lanes are pure dyes. The left-most lane is an unknown food colouring.</p>
+        <div class="svgbox">
+          <svg width="820" height="360" viewBox="0 0 760 340">
+            <rect x="20" y="20" width="720" height="280" rx="18" fill="#f8fafc" stroke="#94a3b8"/>
+            <line x1="30" x2="730" y1="250" y2="250" stroke="#334155" stroke-width="1.6"/>
+            <text x="730" y="268" text-anchor="end" font-size="12" fill="#334155">start line (pencil)</text>
+            <line x1="30" x2="730" y1="100" y2="100" stroke="#0ea5e9" stroke-dasharray="8 6" stroke-width="2"/>
+            <text x="730" y="90" text-anchor="end" font-size="12" fill="#0ea5e9">solvent front</text>
+            <g font-size="12" fill="#334155">
+              <text x="120" y="310" text-anchor="middle">Food colouring (unknown)</text>
+              <text x="280" y="310" text-anchor="middle">Red</text>
+              <text x="400" y="310" text-anchor="middle">Blue</text>
+              <text x="520" y="310" text-anchor="middle">Yellow</text>
+              <text x="640" y="310" text-anchor="middle">Green</text>
+            </g>
+            <!-- Rf 0.20->220; 0.35->198; 0.60->160; 0.80->130 -->
+            <g>
+              <circle cx="120" cy="220" r="8" fill="#e11d48" opacity="0.9"/>
+              <circle cx="120" cy="160" r="8" fill="#ca8a04" opacity="0.9"/>
+            </g>
+            <g>
+              <circle cx="280" cy="220" r="8" fill="#e11d48"/>
+              <circle cx="400" cy="198" r="8" fill="#2563eb"/>
+              <circle cx="520" cy="160" r="8" fill="#ca8a04"/>
+              <circle cx="640" cy="130" r="8" fill="#16a34a"/>
+            </g>
+          </svg>
+        </div>
+        <div class="grid g2" style="margin-top:8px">
+          <label><input type="checkbox" id="q11r"> Red</label>
+          <label><input type="checkbox" id="q11b"> Blue</label>
+          <label><input type="checkbox" id="q11y"> Yellow</label>
+          <label><input type="checkbox" id="q11g"> Green</label>
+        </div>
+        <textarea id="q11exp" placeholder="Explain how you know"></textarea>
+      </div>
+
+      <div>
+        <p><b>12. Matching inks from a letter (4 marks)</b> – The chromatogram shows inks A–D and the ink from the letter. All were run in the same solvent.</p>
+        <div class="svgbox">
+          <svg width="820" height="360" viewBox="0 0 760 340">
+            <rect x="20" y="20" width="720" height="280" rx="18" fill="#ffffff" stroke="#94a3b8"/>
+            <line x1="30" x2="730" y1="250" y2="250" stroke="#334155" stroke-width="1.6"/>
+            <text x="730" y="268" text-anchor="end" font-size="12" fill="#334155">start line (pencil)</text>
+            <line x1="30" x2="730" y1="100" y2="100" stroke="#0ea5e9" stroke-dasharray="8 6" stroke-width="2"/>
+            <text x="730" y="90" text-anchor="end" font-size="12" fill="#0ea5e9">solvent front</text>
+            <g font-size="12" fill="#334155">
+              <text x="160" y="310" text-anchor="middle">A</text>
+              <text x="300" y="310" text-anchor="middle">B</text>
+              <text x="440" y="310" text-anchor="middle">C</text>
+              <text x="580" y="310" text-anchor="middle">D</text>
+              <text x="700" y="310" text-anchor="middle">ink from letter</text>
+            </g>
+            <!-- y: 0.20->220; 0.35->198; 0.60->160; 0.80->130 -->
+            <g fill="#0f172a">
+              <circle cx="160" cy="220" r="7"/>
+              <circle cx="160" cy="160" r="7"/>
+              <circle cx="300" cy="220" r="7"/>
+              <circle cx="300" cy="198" r="7"/>
+              <circle cx="300" cy="130" r="7"/>
+              <circle cx="440" cy="198" r="7"/>
+              <circle cx="440" cy="160" r="7"/>
+              <circle cx="580" cy="160" r="7"/>
+              <circle cx="580" cy="130" r="7"/>
+              <circle cx="700" cy="198" r="7"/>
+              <circle cx="700" cy="160" r="7"/>
+            </g>
+          </svg>
+        </div>
+        <div id="q12" class="row" style="gap:16px;margin-top:8px;flex-wrap:wrap"></div>
+        <textarea id="q12exp" placeholder="State the rule for deciding a match"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part D -->
+  <div class="card"><h2>Part D – Chemical Formulae (4 marks)</h2>
+    <div class="content grid g2">
+      <input id="q13a" type="text" placeholder="(a) 1 Mg, 2 O, 2 H → ?"/>
+      <input id="q13b" type="text" placeholder="(b) 2 Al, 3 O → ?"/>
+      <input id="q13c" type="text" placeholder="(c) 1 Ca, 1 C, 3 O → ?"/>
+      <input id="q13d" type="text" placeholder="(d) Glucose formula"/>
+    </div>
+  </div>
+
+  <!-- Part E -->
+  <div class="card"><h2>Part E – Solubility Graph (6 marks)</h2>
+    <div class="content grid">
+      <p>Ahmed measures the solubility of <b>ammonium chloride</b> in water. Complete the tasks using the data:</p>
+      <div class="svgbox" style="padding:8px">
+        <table>
+          <thead><tr><th>Temperature / °C</th><th>10</th><th>20</th><th>30</th><th>40</th><th>50</th></tr></thead>
+          <tbody><tr><td>Solubility / g per 100 cm³</td><td class="tc">29</td><td class="tc">37</td><td class="tc">45</td><td class="tc">55</td><td class="tc">65</td></tr></tbody>
+        </table>
+      </div>
+      <input id="q14drawn" type="checkbox"> <label for="q14drawn">I have drawn and labelled the graph on paper.</label>
+      <input id="q15" type="text" placeholder="15) Estimated solubility at 35 °C (g/100 cm³)"/>
+    </div>
+  </div>
+
+  <!-- Part F -->
+  <div class="card"><h2>Part F – Analogy & Application (3 marks)</h2>
+    <div class="content grid">
+      <textarea id="q16" placeholder="16) Describe high vs low concentration using the children-in-a-room analogy"></textarea>
+      <input id="q17" type="text" placeholder="17) Diffusion direction across the doorway"/>
+    </div>
+  </div>
+
+  <div class="footerbtns">
+    <button class="btn" onclick="window.print()">Print</button>
+    <button class="btn" onclick="exportJSON()">Export answers</button>
+    <button class="btn accent" onclick="submitOnline()">Submit</button>
+    <div class="sm">Answers are saved in your browser.</div>
+  </div>
+</div>
+
+<script>
+  // ====== CONFIG: endpoint to collect answers (optional) ======
+  const ENDPOINT = ""; // set to your Google Apps Script / Formspree URL
+  const STORAGE_KEY = "cls8_setA_answers_v1_html";
+
+  // ====== form builders ======
+  function radioGroup(containerId, name, options){
+    const c = document.getElementById(containerId);
+    options.forEach(opt => {
+      const id = name+"_"+opt;
+      const label = document.createElement('label');
+      label.style.marginRight = '6px';
+      label.innerHTML = `<input type="radio" name="${name}" value="${opt}" id="${id}"> ${opt}`;
+      c.appendChild(label);
+      document.getElementById(id).addEventListener('change', save);
+    });
+  }
+  function mcq(containerId, name, choices){
+    const c = document.getElementById(containerId);
+    choices.forEach((text, i)=>{
+      const val = String.fromCharCode(65+i);
+      const id = name+"_"+val;
+      const label = document.createElement('label');
+      label.style.display='block';
+      label.innerHTML = `<input type="radio" name="${name}" value="${val}" id="${id}"> ${val}. ${text}`;
+      c.appendChild(label);
+      document.getElementById(id).addEventListener('change', save);
+    });
+  }
+
+  // build MCQs
+  radioGroup('q1', 'q1', ['A','B','C','D']);
+  mcq('q2', 'q2', [
+    'Solubility decreases as temperature increases.',
+    'Solubility increases as temperature increases.',
+    'Solubility stays the same.',
+    'Solubility first decreases then increases.'
+  ]);
+  radioGroup('q12', 'q12', ['A','B','C','D']);
+
+  // listeners for text inputs
+  const ids = ['name','class','email','q3','q4','q5a','q5b','q5c','q6a','q6b','q7a','q7b','q8','q9','q10','q11exp','q12exp','q13a','q13b','q13c','q13d','q14drawn','q15','q16','q17'];
+  ids.forEach(id=>{
+    const el = document.getElementById(id);
+    el && el.addEventListener(el.type==='checkbox'?'change':'input', save);
+  });
+  ['q11r','q11b','q11y','q11g'].forEach(id=>document.getElementById(id).addEventListener('change', save));
+
+  function getAnswers(){
+    const get = id => document.getElementById(id);
+    const ans = {
+      name: get('name').value,
+      class: get('class').value,
+      email: get('email').value,
+      q1: (document.querySelector('input[name="q1"]:checked')||{}).value || '',
+      q2: (document.querySelector('input[name="q2"]:checked')||{}).value || '',
+      q3: get('q3').value,
+      q4: get('q4').value,
+      q5a: get('q5a').value,
+      q5b: get('q5b').value,
+      q5c: get('q5c').value,
+      q6a: get('q6a').value,
+      q6b: get('q6b').value,
+      q7a: get('q7a').value,
+      q7b: get('q7b').value,
+      q8: get('q8').value,
+      q9: get('q9').value,
+      q10: get('q10').value,
+      q11: { Red: get('q11r').checked, Blue: get('q11b').checked, Yellow: get('q11y').checked, Green: get('q11g').checked },
+      q11exp: get('q11exp').value,
+      q12: (document.querySelector('input[name="q12"]:checked')||{}).value || '',
+      q12exp: get('q12exp').value,
+      q13a: get('q13a').value,
+      q13b: get('q13b').value,
+      q13c: get('q13c').value,
+      q13d: get('q13d').value,
+      q14drawn: get('q14drawn').checked,
+      q15: get('q15').value,
+      q16: get('q16').value,
+      q17: get('q17').value,
+      timestamp: new Date().toISOString()
+    };
+    return ans;
+  }
+
+  function save(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(getAnswers()));
+  }
+  function load(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    try{ const a = JSON.parse(raw);
+      const set = (id,val)=>{ const el=document.getElementById(id); if(!el) return; if(el.type==='checkbox') el.checked=!!val; else el.value=val||''; };
+      set('name',a.name); set('class',a.class); set('email',a.email);
+      if(a.q1) (document.getElementById('q1_'+a.q1)||{}).checked=true;
+      if(a.q2) (document.getElementById('q2_'+a.q2)||{}).checked=true;
+      set('q3',a.q3); set('q4',a.q4);
+      set('q5a',a.q5a); set('q5b',a.q5b); set('q5c',a.q5c);
+      set('q6a',a.q6a); set('q6b',a.q6b);
+      set('q7a',a.q7a); set('q7b',a.q7b);
+      set('q8',a.q8); set('q9',a.q9); set('q10',a.q10);
+      document.getElementById('q11r').checked = a.q11?.Red||false;
+      document.getElementById('q11b').checked = a.q11?.Blue||false;
+      document.getElementById('q11y').checked = a.q11?.Yellow||false;
+      document.getElementById('q11g').checked = a.q11?.Green||false;
+      set('q11exp',a.q11exp);
+      if(a.q12) (document.getElementById('q12_'+a.q12)||{}).checked=true;
+      set('q12exp',a.q12exp);
+      set('q13a',a.q13a); set('q13b',a.q13b); set('q13c',a.q13c); set('q13d',a.q13d);
+      set('q14drawn',a.q14drawn); set('q15',a.q15);
+      set('q16',a.q16); set('q17',a.q17);
+    }catch(e){ console.warn('load error',e) }
+  }
+  load();
+
+  function exportJSON(){
+    const data = getAnswers();
+    const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download = `CLS8_SetA_${data.name||'student'}.json`; a.click(); URL.revokeObjectURL(url);
+  }
+
+  async function submitOnline(){
+    const data = getAnswers();
+    if(!ENDPOINT){ exportJSON(); return; }
+    try{
+      const res = await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+      if(res.ok){ alert('Submitted successfully!'); }
+      else{ alert('Submit failed: '+res.status); }
+    }catch(e){ alert('Network error. Exporting JSON instead.'); exportJSON(); }
+  }
+</script>
+</body>
+</html>
