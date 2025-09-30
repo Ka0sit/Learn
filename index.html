@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>CLS8 – Properties of Materials: Practice Set A (Interactive)</title>
 <style>
-  :root{
-    --bg:#f1f5f9; --card:#fff; --text:#0f172a; --muted:#475569; --border:#cbd5e1; --accent:#0ea5e9; --shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);
-  }
+  :root{ --bg:#f1f5f9; --card:#fff; --text:#0f172a; --muted:#475569; --border:#cbd5e1; --accent:#0ea5e9; --shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06); }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif;color:var(--text)}
   .wrap{max-width:980px;margin:24px auto;padding:0 16px}
@@ -24,21 +22,15 @@
   .card h2{font-size:18px;margin:0;padding:14px 18px;border-bottom:1px solid var(--border)}
   .card .content{padding:16px 18px}
   label{font-size:14px;color:var(--muted)}
-  input[type=text],input[type=email],input[type=number],textarea,select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fff;font:inherit}
+  input[type=text],input[type=email],textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fff;font:inherit}
   textarea{min-height:88px}
-  ul,ol{margin:8px 0 0 18px}
   table{border-collapse:collapse;width:100%}
   th,td{border:1px solid var(--border);padding:8px}
   th{background:#f1f5f9;text-align:left}
   .svgbox{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden}
   .footerbtns{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 24px}
   .sm{font-size:12px;color:var(--muted)}
-  @media print{
-    body{background:white}
-    .btn,.footerbtns{display:none !important}
-    .card{box-shadow:none}
-    .wrap{max-width:none}
-  }
+  @media print{ body{background:white} .btn,.footerbtns{display:none !important} .card{box-shadow:none} .wrap{max-width:none} }
 </style>
 </head>
 <body>
@@ -55,7 +47,7 @@
     </div>
   </div>
 
-  <!-- Student info -->
+  <!-- Candidate info -->
   <div class="card"><h2>Candidate information</h2>
     <div class="content grid g3">
       <div><label>Name</label><input id="name" type="text" placeholder="Student name"></div>
@@ -248,11 +240,11 @@
 </div>
 
 <script>
-  // ====== CONFIG: endpoint to collect answers (optional) ======
-  const ENDPOINT = "https://script.google.com/macros/s/AKfycbzENSOnYZI9CFyCp1q_o6pFf5fLlQdzNRSv7UD9AkB6VJ-DLOC2ZXZMf88mdxCWOe_Gtg/exec"; // set to your Google Apps Script / Formspree URL
+  // ====== CONFIG ======
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbzENSOnYZI9CFyCp1q_o6pFf5fLlQdzNRSv7UD9AkB6VJ-DLOC2ZXZMf88mdxCWOe_Gtg/exec"; // <--- dán URL Web App (đuôi /exec)
   const STORAGE_KEY = "cls8_setA_answers_v1_html";
 
-  // ====== form builders ======
+  // ====== builders ======
   function radioGroup(containerId, name, options){
     const c = document.getElementById(containerId);
     options.forEach(opt => {
@@ -277,7 +269,7 @@
     });
   }
 
-  // build MCQs
+  // Init MCQs
   radioGroup('q1', 'q1', ['A','B','C','D']);
   mcq('q2', 'q2', [
     'Solubility decreases as temperature increases.',
@@ -287,7 +279,7 @@
   ]);
   radioGroup('q12', 'q12', ['A','B','C','D']);
 
-  // listeners for text inputs
+  // listeners
   const ids = ['name','class','email','q3','q4','q5a','q5b','q5c','q6a','q6b','q7a','q7b','q8','q9','q10','q11exp','q12exp','q13a','q13b','q13c','q13d','q14drawn','q15','q16','q17'];
   ids.forEach(id=>{
     const el = document.getElementById(id);
@@ -332,13 +324,12 @@
     return ans;
   }
 
-  function save(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(getAnswers()));
-  }
+  function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(getAnswers())); }
   function load(){
     const raw = localStorage.getItem(STORAGE_KEY);
     if(!raw) return;
-    try{ const a = JSON.parse(raw);
+    try{
+      const a = JSON.parse(raw);
       const set = (id,val)=>{ const el=document.getElementById(id); if(!el) return; if(el.type==='checkbox') el.checked=!!val; else el.value=val||''; };
       set('name',a.name); set('class',a.class); set('email',a.email);
       if(a.q1) (document.getElementById('q1_'+a.q1)||{}).checked=true;
@@ -373,10 +364,22 @@
     const data = getAnswers();
     if(!ENDPOINT){ exportJSON(); return; }
     try{
-      const res = await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-      if(res.ok){ alert('Submitted successfully!'); }
-      else{ alert('Submit failed: '+res.status); }
-    }catch(e){ alert('Network error. Exporting JSON instead.'); exportJSON(); }
+      // text/plain để tránh preflight CORS
+      const res = await fetch(ENDPOINT,{
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify(data)
+      });
+      if(res.ok){
+        const r = await res.json().catch(()=>({}));
+        alert('Submitted successfully! ' + (r.marks!=null ? ('Marks: ' + r.marks) : ''));
+      }else{
+        alert('Submit failed: '+res.status);
+      }
+    }catch(e){
+      alert('Network error. Exporting JSON instead.');
+      exportJSON();
+    }
   }
 </script>
 </body>
